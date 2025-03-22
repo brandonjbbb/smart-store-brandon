@@ -36,9 +36,3 @@ git rm -r --cached .venv
 git commit -m "Removed .venv from repository tracking"
 git push
 ✅ Project Setup Complete!
-
-👉 Copy-paste this into your README.md file, save it, then:
-
-git add README.md
-git commit -m "Update README with setup commands"
-git push
