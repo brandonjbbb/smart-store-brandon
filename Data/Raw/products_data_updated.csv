@@ -1,0 +1,7 @@
+ProductID,ProductName,Category,UnitPrice,StockQuantity,Subcategory
+102,hoodie,Clothing,39.1,227,Apparel
+103,cable,Electronics,22.76,36,Equipment
+104,hat,Clothing,43.1,658,Equipment
+105,football,Sports,19.78,235,Accessories
+106,controller,Electronics,88.98,905,Equipment
+107,jacket,Clothing,67.02,114,Supplies
