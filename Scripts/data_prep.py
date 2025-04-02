@@ -1,38 +1,40 @@
-# scripts/data_prep.py
+# scripts/data_scrubber.py
 
-import os
-import sys
-import importlib.util
 import pandas as pd
 
-# Dynamically load logger.py from utils folder
-logger_path = os.path.join(os.path.dirname(__file__), '..', 'utils', 'logger.py')
-spec = importlib.util.spec_from_file_location("logger", logger_path)
-logger_module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(logger_module)
-setup_logger = logger_module.setup_logger
+class DataScrubber:
+    """Reusable class for cleaning and preparing data."""
 
-# Set up logging
-logger = setup_logger()
+    def remove_duplicates(self, df):
+        """Remove duplicate rows."""
+        return df.drop_duplicates()
 
-def main():
-    logger.info("Starting data preparation...")
+    def handle_missing_values(self, df, strategy='drop', fill_value=None):
+        """
+        Handle missing values in the dataframe.
+        strategy: 'drop' or 'fill'
+        fill_value: value to use if filling
+        """
+        if strategy == 'drop':
+            return df.dropna()
+        elif strategy == 'fill':
+            return df.fillna(fill_value)
+        else:
+            raise ValueError("Invalid strategy. Use 'drop' or 'fill'.")
 
-    try:
-        # Load data from CSVs
-        customers = pd.read_csv('Data/Raw/customers_data.csv')
-        products = pd.read_csv('Data/Raw/Products_Data.csv')
-        sales = pd.read_csv('Data/Raw/Sales_Data.csv')
-    except FileNotFoundError as e:
-        logger.error(f"File not found: {e}")
-        return
+    def standardize_column_names(self, df):
+        """Standardize column names by making them lowercase and replacing spaces with underscores."""
+        df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
+        return df
 
-    # Log the dataset shapes
-    logger.info(f"Customers Data Shape: {customers.shape}")
-    logger.info(f"Products Data Shape: {products.shape}")
-    logger.info(f"Sales Data Shape: {sales.shape}")
+    def convert_dates(self, df, date_columns):
+        """Convert specified columns to datetime format."""
+        for col in date_columns:
+            df[col] = pd.to_datetime(df[col], errors='coerce')
+        return df
 
-    logger.info("Data preparation completed.")
-
-if __name__ == "__main__":
-    main()
+    def trim_whitespace(self, df):
+        """Trim leading/trailing whitespace from string columns."""
+        for col in df.select_dtypes(include='object').columns:
+            df[col] = df[col].str.strip()
+        return df

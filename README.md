@@ -1,44 +1,18 @@
-Smart Store - Brandon J
+## ✅ Project 3 – Data Cleaning for ETL
 
-📁 Project Setup Steps
+### Files Created:
+- `scripts/data_scrubber.py`: Reusable cleaning class
+- `scripts/data_prep.py`: Central script to clean raw data for ETL
+- `tests/test_data_scrubber.py`: Unit tests to validate cleaning functions
 
-✅ 1. Cloned Repository
-git clone https://github.com/brandonjbbb/smart-store-brandon.git
-cd smart-store-brandon
-✅ 2. Created Virtual Environment (Mac)
-python3 -m venv .venv
-✅ 3. Activated Virtual Environment
-source .venv/bin/activate
-✅ 4. Installed Requirements
-python3 -m pip install --upgrade -r requirements.txt
-✅ 5. Verified Project Files in VS Code
-Opened project in VS Code
-Confirmed presence of:
-README.md
-.gitignore
-requirements.txt
-data/raw/ folder with CSV files
-utils/logger.py
-scripts/data_prep.py
-✅ 6. Ran Initial Script
-python3 scripts/data_prep.py
-or if needed:
+### Data Cleaning Tasks:
+- Removed duplicates
+- Filled or dropped missing values
+- Standardized column names
+- Trimmed extra whitespace
+- Converted date fields
 
-python3 -m scripts.data_prep
-✅ 7. Git Workflow Commands Used
-git add .
-git commit -m "Add starter files and setup project"
-git push -u origin main
-✅ 8. Cleaned Up Large Files
-Added .venv/ to .gitignore
-Removed .venv from tracking:
-git rm -r --cached .venv
-git commit -m "Removed .venv from repository tracking"
-git push
-✅ Project Setup Complete!
-
-👉 Copy-paste this into your README.md file, save it, then:
-
-git add README.md
-git commit -m "Update README with setup commands"
-git push
+### Cleaned Output:
+- `Data/Prepared/customers_data_cleaned.csv`
+- `Data/Prepared/products_data_cleaned.csv`
+- `Data/Prepared/sales_data_cleaned.csv`

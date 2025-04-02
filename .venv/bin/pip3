@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/Users/brandonj/Music/Data Spring 25/.venv/bin/python3.12" "$0" "$@"
-' '''
+#!/Users/b/Downloads/smart-store-brandon/.venv/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys
