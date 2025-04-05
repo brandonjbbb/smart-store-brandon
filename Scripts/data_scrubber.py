@@ -1,53 +1,34 @@
-import unittest
 import pandas as pd
-from scripts.data_scrubber import DataScrubber
 
-class TestDataScrubber(unittest.TestCase):
-    def setUp(self):
-        self.scrubber = DataScrubber()
-        self.df_with_duplicates = pd.DataFrame({
-            'Name': ['Alice', 'Bob', 'Alice'],
-            'Age': [25, 30, 25]
-        })
-        self.df_with_missing = pd.DataFrame({
-            'Name': ['Alice', None, 'Charlie'],
-            'Age': [25, 30, None]
-        })
-        self.df_with_dates = pd.DataFrame({
-            'JoinDate': ['2020-01-01', 'not_a_date', '2022-06-15']
-        })
-        self.df_dirty_columns = pd.DataFrame({
-            ' First Name ': ['Alice'],
-            'Last Name': ['Smith']
-        })
-        self.df_with_spaces = pd.DataFrame({
-            'City': [' New York ', ' Los Angeles ', ' Chicago ']
-        })
+class DataScrubber:
+    """Reusable class for cleaning and preparing data."""
 
-    def test_remove_duplicates(self):
-        cleaned = self.scrubber.remove_duplicates(self.df_with_duplicates)
-        self.assertEqual(len(cleaned), 2)
+    def remove_duplicates(self, df):
+        """Remove duplicate rows."""
+        return df.drop_duplicates()
 
-    def test_handle_missing_values_drop(self):
-        cleaned = self.scrubber.handle_missing_values(self.df_with_missing, strategy='drop')
-        self.assertEqual(len(cleaned), 1)
+    def handle_missing_values(self, df, strategy='drop', fill_value=None):
+        """Handle missing values: drop or fill."""
+        if strategy == 'drop':
+            return df.dropna()
+        elif strategy == 'fill':
+            return df.fillna(fill_value)
+        else:
+            raise ValueError("Invalid strategy. Use 'drop' or 'fill'.")
 
-    def test_handle_missing_values_fill(self):
-        cleaned = self.scrubber.handle_missing_values(self.df_with_missing, strategy='fill', fill_value='Unknown')
-        self.assertTrue(cleaned.isnull().sum().sum() == 0)
+    def standardize_column_names(self, df):
+        """Standardize column names to lowercase and underscore format."""
+        df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
+        return df
 
-    def test_standardize_column_names(self):
-        cleaned = self.scrubber.standardize_column_names(self.df_dirty_columns)
-        self.assertIn('first_name', cleaned.columns)
-        self.assertIn('last_name', cleaned.columns)
+    def convert_dates(self, df, date_columns):
+        """Convert given columns to datetime."""
+        for col in date_columns:
+            df[col] = pd.to_datetime(df[col], errors='coerce')
+        return df
 
-    def test_convert_dates(self):
-        cleaned = self.scrubber.convert_dates(self.df_with_dates, ['JoinDate'])
-        self.assertTrue(pd.api.types.is_datetime64_any_dtype(cleaned['JoinDate']))
-
-    def test_trim_whitespace(self):
-        cleaned = self.scrubber.trim_whitespace(self.df_with_spaces)
-        self.assertListEqual(cleaned['City'].tolist(), ['New York', 'Los Angeles', 'Chicago'])
-
-if __name__ == '__main__':
-    unittest.main()
+    def trim_whitespace(self, df):
+        """Trim leading/trailing whitespace from string columns."""
+        for col in df.select_dtypes(include='object').columns:
+            df[col] = df[col].str.strip()
+        return df
