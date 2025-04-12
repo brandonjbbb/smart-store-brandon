@@ -134,4 +134,15 @@ python3 scripts/etl_to_dw.py
 Output:
 ```
 ✅ Data warehouse loaded successfully!
+
+
 ```
+
+
+# P5: Cross-Platform Reporting with Power BI & Spark
+
+This project uses PySpark and SQLite to perform cross-platform business intelligence analysis on smart store sales data.  
+We connected to a local SQLite database using Spark JDBC, queried sales, customer, and product tables, and created temporary SQL views.  
+Using Spark SQL, we identified top customers by total spend, analyzed sales trends over time, and grouped results by product category and payment type.  
+Visualizations include a bar chart of top customers and a line chart showing monthly sales trends in 2024.  
+All code, queries, and visuals were executed on macOS using Jupyter Notebook and documented here.
