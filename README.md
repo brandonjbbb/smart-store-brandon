@@ -146,3 +146,60 @@ We connected to a local SQLite database using Spark JDBC, queried sales, custome
 Using Spark SQL, we identified top customers by total spend, analyzed sales trends over time, and grouped results by product category and payment type.  
 Visualizations include a bar chart of top customers and a line chart showing monthly sales trends in 2024.  
 All code, queries, and visuals were executed on macOS using Jupyter Notebook and documented here.
+
+# P6: OLAP Sales by Region 
+
+# 📊 Smart Sales OLAP Analysis
+
+This project is part of the BI & Data Analytics course (P6). It applies OLAP techniques to uncover actionable sales insights using Python, Pandas, and Seaborn.
+
+## 🎯 Business Goal
+**Maximize sales by identifying top-performing regions and customer segments.**  
+Use insights to make data-driven decisions on where to focus inventory and marketing efforts.
+
+---
+
+## 📐 OLAP Analysis Techniques Used
+
+| Technique   | Description |
+|-------------|-------------|
+| **Slicing** | Total sales by region |
+| **Dicing**  | Region × Customer Segment |
+| **Drilldown** | Monthly sales trends per region |
+
+---
+
+## 📈 Key Insights
+
+- **🥇 East region leads in total sales**
+- **🏢 Enterprise customers dominate the South**
+- **📆 Q2 shows peak sales in most regions, especially East**
+
+### 📌 Suggested Business Actions
+
+- Shift inventory and marketing focus to **East region**
+- Target **Enterprise** customers more heavily in the South
+- Launch campaigns in Q2 to capitalize on seasonal surges
+
+---
+
+## 🛠 Tools & Tech
+
+- Python 3
+- Jupyter Notebook
+- Pandas, Matplotlib, Seaborn
+- Git & GitHub
+
+---
+
+## 📁 Notebooks
+
+- `P6_OLAP_Sales_by_Region.ipynb`: Main OLAP analysis notebook with visualizations and insights
+
+---
+
+## ✍️ Author
+
+**Brandon J.**  
+[GitHub: @brandonjbbb](https://github.com/brandonjbbb)
+
